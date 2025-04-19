@@ -1,5 +1,5 @@
 package linkedlist;
-
+import java.util.*;
 public class LinkedList {
     Node head;
     Node tail;
@@ -32,6 +32,7 @@ public class LinkedList {
             System.out.print(temp.value+"->");
             temp=temp.next;
         }
+        System.out.println(null);
     }
     public void getTail(){
         if(head==null){
@@ -121,7 +122,7 @@ public class LinkedList {
         return false;
     }
     public boolean insert(int index,int value){
-        if(index <0 || index>=length){
+        if(index <0 || index>length){
             return false;
 
         }
@@ -129,7 +130,7 @@ public class LinkedList {
             prepend(value);
             return true;
         }
-        if(index == length-1){
+        if(index == length){
             append(value);
             return true;
         }
@@ -151,7 +152,7 @@ public class LinkedList {
         if(index==0){
             return removeFirst();
         }
-        if(index == length){
+        if(index == length-1){
             return removeLast();
         }
         Node x=head;
@@ -169,17 +170,22 @@ public class LinkedList {
 
 
     }
-    public void reverse(){
+    public void reverse() {
+        if (head == null || head.next == null) return;
+
         Node temp = head;
-        head=tail;
-        tail=temp;
+        head = tail;
+        tail = temp;
+
         Node before = null;
-        Node after=temp.next;
-        for (int i=0;i<length;i++){
-            after=temp.next;
-            temp.next=before ;
-            before=temp;
-            temp=after;
+        Node after;
+
+        for (int i = 0; i < length; i++) {
+            after = temp.next;     // store next
+            temp.next = before;    // reverse the link
+            before = temp;         // move before forward
+            temp = after;          // move temp forward
         }
     }
+
 }
